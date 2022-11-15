@@ -79,6 +79,7 @@ public:
 		m_bullet->SetLinearVelocity(b2Vec2(0.0f, -50.0f));
 		m_bullet->SetAngularVelocity(0.0f);
 
+#if defined(BOX2D_PROFILE)
 		extern B2_API int32 b2_gjkCalls, b2_gjkIters, b2_gjkMaxIters;
 		extern B2_API int32 b2_toiCalls, b2_toiIters, b2_toiMaxIters;
 		extern B2_API int32 b2_toiRootIters, b2_toiMaxRootIters;
@@ -92,12 +93,14 @@ public:
 		b2_toiMaxIters = 0;
 		b2_toiRootIters = 0;
 		b2_toiMaxRootIters = 0;
+#endif // BOX2D_PROFILE
 	}
 
 	void Step(Settings& settings) override
 	{
 		Test::Step(settings);
 
+#if defined(BOX2D_PROFILE)
 		extern B2_API int32 b2_gjkCalls, b2_gjkIters, b2_gjkMaxIters;
 		extern B2_API int32 b2_toiCalls, b2_toiIters;
 		extern B2_API int32 b2_toiRootIters, b2_toiMaxRootIters;
@@ -119,6 +122,7 @@ public:
 				b2_toiRootIters / float(b2_toiCalls), b2_toiMaxRootIters);
 			m_textLine += m_textIncrement;
 		}
+#endif
 
 		if (m_stepCount % 60 == 0)
 		{

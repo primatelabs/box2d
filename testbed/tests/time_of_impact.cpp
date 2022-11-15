@@ -72,9 +72,11 @@ public:
 		g_debugDraw.DrawString(5, m_textLine, "toi = %g", output.t);
 		m_textLine += m_textIncrement;
 
+#if defined(BOX2D_PROFILE)
 		extern B2_API int32 b2_toiMaxIters, b2_toiMaxRootIters;
 		g_debugDraw.DrawString(5, m_textLine, "max toi iters = %d, max root iters = %d", b2_toiMaxIters, b2_toiMaxRootIters);
 		m_textLine += m_textIncrement;
+#endif
 
 		b2Vec2 vertices[b2_maxPolygonVertices];
 
@@ -88,7 +90,7 @@ public:
 
 		b2Transform transformB;
 		sweepB.GetTransform(&transformB, 0.0f);
-		
+
 		//b2Vec2 localPoint(2.0f, -0.1f);
 
 		for (int32 i = 0; i < m_shapeB.m_count; ++i)

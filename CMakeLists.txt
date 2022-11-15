@@ -11,6 +11,7 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 option(BOX2D_BUILD_UNIT_TESTS "Build the Box2D unit tests" ON)
 option(BOX2D_BUILD_TESTBED "Build the Box2D testbed" ON)
 option(BOX2D_BUILD_DOCS "Build the Box2D documentation" OFF)
+option(BOX2D_PROFILE "Build Box2D profiling code" OFF)
 option(BOX2D_USER_SETTINGS "Override Box2D settings with b2UserSettings.h" OFF)
 
 option(BUILD_SHARED_LIBS "Build Box2D as a shared library" OFF)
@@ -25,6 +26,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 include(GNUInstallDirs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+if (BOX2D_PROFILE)
+	add_compile_definitions(BOX2D_PROFILE)
+endif()
 
 if (BOX2D_USER_SETTINGS)
 	add_compile_definitions(B2_USER_SETTINGS)

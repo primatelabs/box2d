@@ -22,7 +22,7 @@
 
 #include "box2d/b2_timer.h"
 
-#if defined(_WIN32)
+#if defined(_WIN32) && defined(BOX2D_PROFILE)
 
 double b2Timer::s_invFrequency = 0.0;
 
@@ -66,7 +66,7 @@ float b2Timer::GetMilliseconds() const
 	return ms;
 }
 
-#elif defined(__linux__) || defined (__APPLE__)
+#elif (defined(__linux__) || defined (__APPLE__)) && defined(BOX2D_PROFILE)
 
 #include <sys/time.h>
 
@@ -89,7 +89,7 @@ float b2Timer::GetMilliseconds() const
     gettimeofday(&t, 0);
 	time_t start_sec = m_start_sec;
 	suseconds_t start_usec = m_start_usec;
-	
+
 	// http://www.gnu.org/software/libc/manual/html_node/Elapsed-Time.html
 	if (t.tv_usec < start_usec)
 	{
@@ -97,7 +97,7 @@ float b2Timer::GetMilliseconds() const
 		start_usec -= 1000000 * nsec;
 		start_sec += nsec;
 	}
-	
+
 	if (t.tv_usec - start_usec > 1000000)
 	{
 		int nsec = (t.tv_usec - start_usec) / 1000000;
